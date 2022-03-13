@@ -64,18 +64,40 @@ INSTALLDIRSTABLE=$INSTALLDIR/$DIRSTABLE
 TASK="TASK"
 ERROR="none"
 
+#attributes
+BOLD="$(tput bold)"
+NC="$(tput sgr0)"
+BLINK="$(tput blink)"
+
 #colors
-BLACK='\033[1;30m'
-RED='\033[1;31m'
-GREEN='\033[1;32m'
-YELLOW='\033[1;33m'
-BLUE='\033[1;34m'
-PURPLE='\033[1;35m'
-CYAN='\033[1;36m'
-GRAY='\033[1;37m'
-NC='\033[0m'
-REDBLINK='\033[1;31;5m'
-BLUEBLINK='\033[1;34;5m'
+
+#normal ones
+N_BLACK="$(tput setaf 0)"
+N_RED="$(tput setaf 1)"
+N_GREEN="$(tput setaf 2)"
+N_YELLOW="$(tput setaf 3)"
+N_BLUE="$(tput setaf 4)"
+N_PURPLE="$(tput setaf 5)"
+N_CYAN="$(tput setaf 6)"
+N_WHITE="$(tput setaf 7)"
+
+#bold ones, naming for compatibility
+
+#actually gray
+BLACK="${BOLD}${N_BLACK}"
+RED="${BOLD}${N_RED}"
+GREEN="${BOLD}${N_GREEN}"
+YELLOW="${BOLD}${N_YELLOW}"
+BLUE="${BOLD}${N_BLUE}"
+PURPLE="${BOLD}${N_PURPLE}"
+CYAN="${BOLD}${N_CYAN}"
+
+#actually bold white
+GRAY="${BOLD}${N_WHITE}"
+
+#actually bold blink
+REDBLINK="${BLINK}${RED}"
+BLUEBLINK="${BLINK}${BLUE}"
 
 #script dir path
 SCRIPTDIRPATH=$(dirname "$0") &> /dev/null
