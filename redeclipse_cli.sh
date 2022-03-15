@@ -287,7 +287,7 @@ function showbar {
         barLen=$(echo ${percDone%'.00'})
         halfDone=`expr $halfDone + 6`
         tput bold
-        PUT 35 $halfDone;  echo -e "\033[7m \033[0m"
+        PUT 27 $halfDone;  echo -e "\033[7m \033[0m"
 		echo -e ""
         tput sgr0
         }
