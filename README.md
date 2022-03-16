@@ -20,7 +20,7 @@ This CLI will help you to install and mantain the Red Eclipse stable and develop
 
 [![](https://cdn.discordapp.com/attachments/645134776466014220/953624778491723807/cli3.png)](https://cdn.discordapp.com/attachments/645134776466014220/953624778491723807/cli3.png)
 
-**Linux base distros currently detected and supported:**
+**Supported Linux base distros currently detected:**
 - Arch Linux based
 - Debian based
 - Ubuntu based
@@ -38,7 +38,7 @@ You don't need to install it, after a done Red Eclipse install you can decide if
 
 **How to use the CLI:**
 1. download and extract
-2. run it `./redeclipse_cli.sh`
+2. run it `./redeclipse_cli.sh` or `./redeclipse_cli.sh -h` for the quick ui
 *That's all!*
 *If you face an error you need to make it executable with `chmod +x redeclipse_cli.sh`
 
