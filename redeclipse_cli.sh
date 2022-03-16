@@ -329,7 +329,7 @@ case "$INSTALLVERSION" in
 	cd "$DIRDEV" &> /dev/null
     $EXECSUDO git clone --recurse-submodules $GITPATH &> /dev/null
 	cd base &> /dev/null
-	$EXECSUDO make -C src install &> /dev/null
+	$EXECSUDO make all -BnC src clean && make all -BnC src install &> /dev/null
 	desktoplink
     ;;
   stable)	
@@ -348,7 +348,7 @@ case "$INSTALLVERSION" in
 	cd "$DIRSTABLE" &> /dev/null	
     $EXECSUDO git clone --recurse-submodules -b $VERSTABLE --single-branch $GITPATH &> /dev/null
 	cd base &> /dev/null
-	$EXECSUDO make -C src install &> /dev/null
+	$EXECSUDO make all -BnC src clean && make all -BnC src install &> /dev/null
 	desktoplink
     ;;
   cli)
@@ -388,7 +388,7 @@ case "$INSTALLVERSION" in
 	cd "$DIRDEV" &> /dev/null
     $EXECSUDO git clone --recurse-submodules $GITPATH &> /dev/null
 	cd base &> /dev/null
-	$EXECSUDO make -C src install &> /dev/null
+	$EXECSUDO make all -BnC src clean && make all -BnC src install &> /dev/null
 	desktoplink
 	APPNAMELONG="Red Eclipse"
 	APPCOMMENT="A free, casual arena shooter"
@@ -404,7 +404,7 @@ case "$INSTALLVERSION" in
 	cd "$DIRSTABLE" &> /dev/null
 	$EXECSUDO git clone --recurse-submodules -b $VERSTABLE --single-branch $GITPATH &> /dev/null
 	cd base &> /dev/null
-	$EXECSUDO make -C src install &> /dev/null
+	$EXECSUDO make all -BnC src clean && make all -BnC src install &> /dev/null
 	desktoplink
     ;;
 esac
@@ -424,7 +424,7 @@ case "$INSTALLVERSION" in
 	$EXECSUDO git submodule init data/maps &> /dev/null
 	$EXECSUDO git pull &> /dev/null
 	$EXECSUDO git submodule update &> /dev/null
-	$EXECSUDO make -C src/ server install-server &> /dev/null
+	$EXECSUDO make all -BnC src clean && make all -BnC src/ server install-server &> /dev/null
     ;;
   stable)
   	#install stable version
@@ -437,7 +437,7 @@ case "$INSTALLVERSION" in
 	$EXECSUDO git submodule init data/maps &> /dev/null
 	$EXECSUDO git pull &> /dev/null
 	$EXECSUDO git submodule update &> /dev/null
-	$EXECSUDO make -C src/ server install-server &> /dev/null
+	$EXECSUDO make all -BnC src clean && make all -BnC src/ server install-server &> /dev/null
     ;;
   *)
   	#install both versions
@@ -450,7 +450,7 @@ case "$INSTALLVERSION" in
 	$EXECSUDO git submodule init data/maps &> /dev/null
 	$EXECSUDO git pull &> /dev/null
 	$EXECSUDO git submodule update &> /dev/null
-	$EXECSUDO make -C src/ server install-server &> /dev/null
+	$EXECSUDO make all -BnC src clean && make all -BnC src/ server install-server &> /dev/null
 	cd "$INSTALLDIR" &> /dev/null
 	$EXECSUDO rm -f -r "$DIRSTABLESERVER" &> /dev/null
 	$EXECSUDO mkdir "$DIRSTABLESERVER" &> /dev/null
@@ -460,7 +460,7 @@ case "$INSTALLVERSION" in
 	$EXECSUDO git submodule init data/maps &> /dev/null
 	$EXECSUDO git pull &> /dev/null
 	$EXECSUDO git submodule update &> /dev/null
-	$EXECSUDO make -C src/ server install-server &> /dev/null
+	$EXECSUDO make all -BnC src clean && make all -BnC src/ server install-server &> /dev/null
     ;;
 esac
 }
@@ -535,7 +535,7 @@ case "$INSTALLVERSION" in
 	cd "$DIRDEV"
     git pull --force git submodule update --remote $GITPATH &> /dev/null
 	cd base &> /dev/null
-	make -C src install &> /dev/null
+	make -BnC src install &> /dev/null
     ;;
   stable)
   	#update stable version
@@ -543,7 +543,7 @@ case "$INSTALLVERSION" in
 	cd "$DIRSTABLE"
     git pull --force git submodule update --remote $GITPATH &> /dev/null
 	cd base &> /dev/null
-	make -C src install &> /dev/null
+	make -BnC src install &> /dev/null
     ;;
   *)
   	#update both versions
@@ -551,12 +551,12 @@ case "$INSTALLVERSION" in
 	cd "$DIRDEV"
     git pull --force git submodule update --remote $GITPATH &> /dev/null
 	cd base &> /dev/null
-	make -C src install &> /dev/null
+	make all -BnC src clean && make all -BnC src install &> /dev/null
 	cd "$INSTALLDIR"
 	cd "$DIRSTABLE"
     git pull --force git submodule update --remote $GITPATH &> /dev/null
 	cd base &> /dev/null
-	make -C src install &> /dev/null
+	make -BnC src install &> /dev/null
     ;;
 esac
 }
@@ -569,25 +569,25 @@ case "$INSTALLVERSION" in
     cd "$INSTALLDIR" &> /dev/null
 	cd "$DIRDEV" &> /dev/null
 	cd base &> /dev/null
-	make -C src install &> /dev/null
+	make -BnC src install &> /dev/null
     ;;
   stable)
   	#compile stable version
     cd "$INSTALLDIR" &> /dev/null
 	cd "$DIRSTABLE" &> /dev/null
 	cd base &> /dev/null
-	make -C src install &> /dev/null
+	make -BnC src install &> /dev/null
     ;;
   *)
   	#compile both versions
     cd "$INSTALLDIR" &> /dev/null
 	cd "$DIRDEV" &> /dev/null
 	cd base &> /dev/null
-	make -C src install &> /dev/null
+	make -BnC src install &> /dev/null
 	cd "$INSTALLDIR" &> /dev/null
 	cd "$DIRSTABLE" &> /dev/null
 	cd base &> /dev/null
-	make -C src install &> /dev/null
+	make -BnC src install &> /dev/null
     ;;
 esac
 }
