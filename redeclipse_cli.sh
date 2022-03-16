@@ -1004,7 +1004,7 @@ if [[ $X = "c" ]] ; then
 	esac
 	ERROR="none"
 	clear
-	$EXECSUDO "$SCRIPTDIRPATH/$SCRIPTNAME"
+	"$SCRIPTDIRPATH/$SCRIPTNAME"
 fi
 ERROR="none"
 
