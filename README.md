@@ -1,8 +1,10 @@
 # Red Eclipse CLI
-[![](https://cdn.discordapp.com/attachments/645134776466014220/952352585724067860/cli.png)](https://cdn.discordapp.com/attachments/645134776466014220/952352585724067860/cli.png)
+[![](https://cdn.discordapp.com/attachments/645134776466014220/953440742070706286/cli.png)](https://cdn.discordapp.com/attachments/645134776466014220/953440742070706286/cli.png)
 
 Red Eclipse CLI is a universally compatible command line interface for many common Linux versions to carry out and manage Red Eclipse installations comfortably and quickly.
 This CLI will help you to install and mantain the Red Eclipse stable and development version directly from the official [Red Eclipse](https://github.com/redeclipse/ "Red Eclipse") GitHub repository.
+
+[![](https://media.discordapp.net/attachments/645134776466014220/953442300724379718/cli2.png)](https://media.discordapp.net/attachments/645134776466014220/953442300724379718/cli2.png)
 
 **Features of the cli:**
 - install / reinstall / uninstall
