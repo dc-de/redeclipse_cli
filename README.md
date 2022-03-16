@@ -18,6 +18,8 @@ This CLI will help you to install and mantain the Red Eclipse stable and develop
 - verbose mode #coming soon
 - debug mode #coming soon
 
+[![](https://cdn.discordapp.com/attachments/645134776466014220/953624778491723807/cli3.png)](https://cdn.discordapp.com/attachments/645134776466014220/953624778491723807/cli3.png)
+
 **Linux base distros currently detected and supported:**
 - Arch Linux based
 - Debian based
