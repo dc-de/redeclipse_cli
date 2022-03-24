@@ -1,7 +1,7 @@
 #!/bin/bash
 ### Red Eclipse CLI ###
 CLIVER='v0.0.2'
-GITVER='2'
+GITVER='1'
 <<COMMENT
 License:
 This work by "dc" is licensed under the Creative Commons 
@@ -20,7 +20,7 @@ PACKAGESARCH='git curl sdl2_mixer sdl2_image enet hicolor-icon-theme'
 
 #git path
 GITPATH='https://github.com/redeclipse/base.git'
-RAWUPDATECLIURL='https://raw.githubusercontent.com/dc-de/redeclipse_cli/main/redeclipse_cli.sh'
+RAWUPDATECLIURL='https://github.com/dc-de/redeclipse_cli/raw/main/redeclipse_cli.sh'
 
 #git branch
 DEVELOPMENT='master'
