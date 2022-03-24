@@ -20,6 +20,7 @@ PACKAGESARCH='git curl sdl2_mixer sdl2_image enet hicolor-icon-theme'
 
 #git path
 GITPATH='https://github.com/redeclipse/base.git'
+RAWUPDATECLIURL='https://raw.githubusercontent.com/dc-de/redeclipse_cli/main/redeclipse_cli.sh'
 
 #git branch
 DEVELOPMENT='master'
@@ -115,6 +116,29 @@ SCRIPTEXTENSION=$(echo "$SFILE" | sed 's/^.*\.//')
 }
 install_defaults
 #defaults end
+
+function updatecli()
+{
+ERROR="Updating the CLI faild! Try it again!"
+clear
+TASK="AUTOUPDATE CLI"
+TEMPRAWUPDATECLIURL=$RAWUPDATECLIURL
+GITVERGIT=$(curl --silent $TEMPRAWUPDATECLIURL | awk -F "=" '/GITVER/ {print $2}')
+if [[ $GITVER < $GITVERGIT ]]; then
+	rm "$SCRIPTDIRPATH/update$SCRIPTNAME" &> /dev/null
+	curl --silent $TEMPRAWUPDATECLIURL --output "$SCRIPTDIRPATH/update$SCRIPTNAME" & PID=$! &> /dev/null
+	while [ -d /proc/$PID ]
+	do
+		loading
+		clear
+	done
+	ERROR="none"
+	cp "$SCRIPTDIRPATH/update$SCRIPTNAME" "$SCRIPTDIRPATH/$SCRIPTNAME" && bash "$SCRIPTDIRPATH/$SCRIPTNAME"
+	clear
+	exit
+fi
+ERROR="none"
+}
 
 function dofolder()
 {
@@ -675,6 +699,8 @@ if [[ $ERROR = "none" ]] ; then
 else
 	echo -e "${PURPLE}Red Eclipse${NC} CLI: ${REDBLINK}$ERROR${NC}"
 fi
+#clean update CLI
+rm "$SCRIPTDIRPATH/update$SCRIPTNAME" &> /dev/null
 #reset cursor
 echo -en "\033[?12l\033[?25h"
 suspend_sudo
@@ -817,6 +843,11 @@ dofolder
 detect_os
 check_sudo
 check_install
+
+#update CLI
+updatecli
+#clean update CLI
+rm "$SCRIPTDIRPATH/update$SCRIPTNAME" &> /dev/null
 
 #main menu
 main
