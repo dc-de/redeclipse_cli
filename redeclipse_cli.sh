@@ -21,7 +21,7 @@ PACKAGESARCH='git curl sdl2_mixer sdl2_image enet hicolor-icon-theme'
 
 #git path
 GITPATH='https://github.com/redeclipse/base.git'
-RAWUPDATECLIURL='https://github.com/dc-de/redeclipse_cli/raw/main/redeclipse_cli.sh'
+RAWUPDATECLIURL='https://github.com/dc-de/redeclipse_cli/blob/main/redeclipse_cli.sh'
 
 #git branch
 DEVELOPMENT='master'
