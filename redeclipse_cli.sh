@@ -848,6 +848,7 @@ check_install
 
 #update CLI
 updatecli
+
 #clean update CLI
 rm "$SCRIPTDIRPATH/update$SCRIPTNAME" &> /dev/null
 
