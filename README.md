@@ -15,6 +15,7 @@ This CLI will help you to install and mantain the Red Eclipse stable and develop
 - install small server builds (great for installing new servers quick)
 - making this CLI systemwide accessible
 - quick CLI and full CLI
+- CLI auto update (this CLI updates it self if a new release is done)
 - verbose mode #coming soon
 - debug mode #coming soon
 
