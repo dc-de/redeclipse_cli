@@ -54,7 +54,7 @@ VERSTABLE='v2.0.0'
 #defaults init
 function install_defaults()
 {
-if [[ $EUID -ne 0 ]]; then
+if [[ $EUID -ne 0 ]] ; then
 	PUSER=$USER
 else
 	PUSER=$SUDO_USER
@@ -124,8 +124,8 @@ ERROR="Updating the CLI faild! Try it again!"
 clear
 TASK="AUTOUPDATE CLI"
 TEMPRAWUPDATECLIURL=$RAWUPDATECLIURL
-GITVERGIT=$(curl --silent $TEMPRAWUPDATECLIURL | awk -F "=" '/GITVER/ {print $2}')
-if [[ $GITVER < $GITVERGIT ]]; then
+GITVERGIT=$(curl --silent $TEMPRAWUPDATECLIURL | awk -F "=" '/GITVER/ {print $2}' | grep -Eo '[0-9]{1,4}')
+if (( $GITVER < $GITVERGIT )); then
 	rm "$SCRIPTDIRPATH/update$SCRIPTNAME" &> /dev/null
 	curl --silent $TEMPRAWUPDATECLIURL --output "$SCRIPTDIRPATH/update$SCRIPTNAME" & PID=$! &> /dev/null
 	while [ -d /proc/$PID ]
