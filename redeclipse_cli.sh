@@ -1,7 +1,7 @@
 #!/bin/bash
 ### Red Eclipse CLI ###
 CLIVER='v0.0.2'
-GITVER='2'
+GITVER=2
 
 <<COMMENT
 License:
