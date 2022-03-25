@@ -128,6 +128,7 @@ GITVERGIT=$(curl --silent $TEMPRAWUPDATECLIURL | awk -F "=" '/GITVER/ {print $2}
 if (( $GITVER < $GITVERGIT )); then
 	rm "$SCRIPTDIRPATH/update$SCRIPTNAME" &> /dev/null
 	curl --silent $TEMPRAWUPDATECLIURL --output "$SCRIPTDIRPATH/update$SCRIPTNAME" & PID=$! &> /dev/null
+	GITVER=$GITVERGIT
 	while [ -d /proc/$PID ]
 	do
 		loading
