@@ -109,6 +109,10 @@ if [[ -z "$SCRIPTDIRPATH" ]] ; then
   ERROR="Script path is not accessible!"
 fi
 
+#gitver
+TEMPRAWUPDATECLIURL=$RAWUPDATECLIURL
+GITVERGIT=$(curl --silent $TEMPRAWUPDATECLIURL | awk -F "=" '/GITVER/ {print $2}' | grep -Eo '[0-9]{1,4}')
+
 #script name
 SCRIPTNAME="$(basename "$(test -L "$0" && readlink "$0" || echo "$0")")"
 SFILE=$SCRIPTNAME
@@ -122,23 +126,33 @@ function updatecli()
 {
 ERROR="Updating the CLI faild! Try it again!"
 clear
-TASK="AUTOUPDATE CLI"
-TEMPRAWUPDATECLIURL=$RAWUPDATECLIURL
-GITVERGIT=$(curl --silent $TEMPRAWUPDATECLIURL | awk -F "=" '/GITVER/ {print $2}' | grep -Eo '[0-9]{1,4}')
+TASK="CLI AUTOUPDATE"
+CLIUPDATEINFO=""
 if (( $GITVER < $GITVERGIT )); then
-	rm "$SCRIPTDIRPATH/update$SCRIPTNAME" &> /dev/null
-	curl --silent $TEMPRAWUPDATECLIURL --output "$SCRIPTDIRPATH/update$SCRIPTNAME" & PID=$! &> /dev/null
+	CLIUPDATEINFO="New CLI release is available! CLI Autoupdate is active now!"
+	ERROR="none"
+	SUDOACTIONMSG="update CLI"
+	forcesudo
+	clear
+	CLIUPDATEINFO=""
+	$EXECSUDO rm "$SCRIPTDIRPATH/update$SCRIPTNAME" &> /dev/null
+	$EXECSUDO curl --silent $TEMPRAWUPDATECLIURL --output "$SCRIPTDIRPATH/update$SCRIPTNAME" & PID=$! &> /dev/null
 	GITVER=$GITVERGIT
 	while [ -d /proc/$PID ]
 	do
 		loading
 		clear
 	done
+	CLIUPDATEINFO=""
 	ERROR="none"
-	cp "$SCRIPTDIRPATH/update$SCRIPTNAME" "$SCRIPTDIRPATH/$SCRIPTNAME" && bash "$SCRIPTDIRPATH/$SCRIPTNAME"
+	suspend_sudo
+	$EXECSUDO rm "/usr/local/bin/$SCRIPTNAMESHORT"
+	$EXECSUDO cp -l "$INSTALLDIR/$SCRIPTNAME" "/usr/local/bin/$SCRIPTNAMESHORT"
+	$EXECSUDO cp "$SCRIPTDIRPATH/update$SCRIPTNAME" "$SCRIPTDIRPATH/$SCRIPTNAME" && bash "$SCRIPTDIRPATH/$SCRIPTNAME"
 	clear
 	exit
 fi
+CLIUPDATEINFO=""
 ERROR="none"
 }
 
@@ -221,7 +235,7 @@ cat <<EOF
 [7m[38;2;229;229;229m▇[38;2;152;152;152m▇[0m   [7m[38;2;245;245;245m▇[38;2;255;255;255m▇▇▇[0m   [7m[38;2;243;243;243m▇[38;2;255;255;255m▇▇▇[38;2;254;254;254m▇[0m      [7m[38;2;254;254;254m▇[38;2;255;255;255m▇▇[38;2;190;190;190m▇[0m   [7m[38;2;254;254;254m▇[38;2;255;255;255m▇▇▇[0m [7m[38;2;200;200;200m▇[38;2;182;182;182m▇[0m [7m[38;2;255;255;255m▇[0m [38;2;148;148;148;48;2;240;240;240m▏[0m[38;2;218;218;218m▌[7m[38;2;178;178;178m▇[38;2;255;255;255m▇▇[38;2;223;223;223m▇[0m [7m[38;2;190;190;190m▇[38;2;254;254;254m▇▇▇▇[38;2;224;224;224m▇[0m  [7m[38;2;254;254;254m▇[38;2;255;255;255m▇▇[38;2;218;218;218m▇[0m      [7m[38;2;113;0;0m▇[38;2;128;0;0m▇▇▇[38;2;98;0;0m▇[0m [7m[38;2;110;0;0m▇[38;2;128;0;0m▇▇▇[38;2;100;0;0m▇[0m [7m[38;2;128;0;0m▇[0m  [0m
 EOF
 echo -e "${RED}$CLIVER${NC}"
-echo -e ""
+echo -e "${BLUEBLINK}$CLIUPDATEINFO${NC}"
 }
 
 function logo_short()
@@ -388,6 +402,7 @@ case "$INSTALLVERSION" in
 	TERMINALSTAT=true
 	suspend_sudo
 	$EXECSUDO cp "$SCRIPTDIRPATH/$SCRIPTNAME" "$INSTALLDIR/$SCRIPTNAME" &> /dev/null
+	$EXECSUDO rm "/usr/local/bin/$SCRIPTNAMESHORT" &> /dev/null
 	$EXECSUDO cp -l "$INSTALLDIR/$SCRIPTNAME" "/usr/local/bin/$SCRIPTNAMESHORT" &> /dev/null
 	if [[ $DEVINSTALLED = 1 ]]; then
 		INSTALLAPATHPREFIX=$INSTALLDIR
@@ -725,6 +740,16 @@ exit 1
 #quick ui
 var1=$2
 var2=$3
+if [[ ! "$1" == "" ]] ; then
+	if (( $GITVER < $GITVERGIT )); then
+		trap cleanup EXIT
+		autosudo
+		detect_os
+		check_sudo
+		updatecli
+	fi
+fi
+
 if [[ "$1" == "-" ]] ; then
 	display_help
 	exit
