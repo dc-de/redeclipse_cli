@@ -146,8 +146,10 @@ if (( $GITVER < $GITVERGIT )); then
 	CLIUPDATEINFO=""
 	ERROR="none"
 	suspend_sudo
-	$EXECSUDO rm "/usr/local/bin/$SCRIPTNAMESHORT"
-	$EXECSUDO cp -l "$INSTALLDIR/$SCRIPTNAME" "/usr/local/bin/$SCRIPTNAMESHORT"
+	if [ -e "/usr/local/bin/$SCRIPTNAMESHORT" ]; then
+		$EXECSUDO rm -f "/usr/local/bin/$SCRIPTNAMESHORT" &> /dev/null
+		$EXECSUDO cp -l "$INSTALLDIR/$SCRIPTNAME" "/usr/local/bin/$SCRIPTNAMESHORT" &> /dev/null
+	fi
 	$EXECSUDO cp "$SCRIPTDIRPATH/update$SCRIPTNAME" "$SCRIPTDIRPATH/$SCRIPTNAME" && bash "$SCRIPTDIRPATH/$SCRIPTNAME"
 	clear
 	exit
